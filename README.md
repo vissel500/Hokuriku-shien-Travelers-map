@@ -90,4 +90,4 @@
 
 ## 機能の実装方針予定
 
-Ruby on Railsを使って行います。
+Ruby on Railsを使って行います
