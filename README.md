@@ -87,6 +87,7 @@
 ・Stimulus Autocomplete(オートコンプリート)
 ■ WebAPI: 
 ・Google Maps Platform (地図・道路及び交通情報・各種観光施設及びその周辺のエリアの営業情報や混雑度の情報・サイトリンクの表示及び取得)
+・Google Places API(マップ上にピン留め表示する「その県及び地域の主要な観光施設」のデータ収集)
 ・GCP Recommendations AI (レコメンド機能用)
 ■ 認証:
 ・Devise(Ruby on Railsでの認証を処理)
