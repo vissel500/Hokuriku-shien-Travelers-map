@@ -56,13 +56,24 @@ body { height: 100% }
   .controls:focus {
     border-color: #4d90fe;
   }
+
+  #map-control-container {
+    position: absolute;
+    top: 122px;
+    left: 83px;
+    z-index: 5;
+  }
 </style>
 </head>
 
 <body>
 <div id="map-menu-container">
-    <input id="pac-input" class="controls" type="text" placeholder="検索...">
-    <!-- ここにその他のメニュー項目やフィルタリングのオプションを追加できます -->
+  <input id="pac-input" class="controls" type="text" placeholder="検索...">
+  <!-- ここにその他のメニュー項目やフィルタリングのオプションを追加 -->
+</div>
+<div id="map-control-container">
+  <button id="toggle-traffic" class="btn btn-success btn-sm toggle-button">トラフィック情報</button>
+  <button id="toggle-transit" class="btn btn-secondary btn-sm toggle-button">トランジット情報</button>
 </div>
 <div id="map"></div>
 
@@ -76,10 +87,70 @@ body { height: 100% }
     };
     var map = new google.maps.Map(document.getElementById('map'), Options);
 
+    // TrafficLayer の追加
+    var trafficLayer = new google.maps.TrafficLayer();
+    trafficLayer.setMap(map);
+
+    // TransitLayer の追加
+    var transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
+
+    // トラフィックレイヤーのトグル機能
+    document.getElementById('toggle-traffic').addEventListener('click', function() {
+      if (trafficLayer.getMap()) {
+        trafficLayer.setMap(null);
+        this.classList.remove('btn-success');
+        this.classList.add('btn-secondary');
+      } else {
+        trafficLayer.setMap(map);
+        this.classList.remove('btn-secondary');
+        this.classList.add('btn-success');
+      }
+    });
+
+    // トランジットレイヤーのトグル機能
+    document.getElementById('toggle-transit').addEventListener('click', function() {
+      if (transitLayer.getMap()) {
+        transitLayer.setMap(null);
+        this.classList.remove('btn-secondary');
+        this.classList.add('btn-success');
+      } else {
+        transitLayer.setMap(map);
+        this.classList.remove('btn-success');
+        this.classList.add('btn-secondary');
+      }
+    });
+
     // プレイス検索ボックスを設定
     var input = document.getElementById('pac-input');
     var autocomplete = new google.maps.places.Autocomplete(input);
     autocomplete.bindTo('bounds', map);
+
+    // エンターキーが押されたときのイベントリスナー
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault(); // デフォルトのフォーム送信を防ぐ
+        placeSearch(map, input.value);
+      }
+    });
+
+    function placeSearch(map, query) {
+      var search = new google.maps.places.PlacesService(map);
+      search.textSearch({ query: query }, function(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK && results[0]) {
+          var place = results[0];
+          map.setCenter(place.geometry.location);
+          map.setZoom(17);
+
+          new google.maps.Marker({
+            map: map,
+            position: place.geometry.location
+          });
+        } else {
+          window.alert("検索結果が見つかりませんでした: " + query);
+        }
+      });
+    }
 
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
@@ -96,11 +167,6 @@ body { height: 100% }
       infowindow.close();
       marker.setVisible(false);
       var place = autocomplete.getPlace();
-      if (!place.geometry) {
-        window.alert("検索結果が見つかりませんでした: '" + place.name + "'");
-        return;
-      }
-
       if (place.geometry.viewport) {
         map.fitBounds(place.geometry.viewport);
       } else {
