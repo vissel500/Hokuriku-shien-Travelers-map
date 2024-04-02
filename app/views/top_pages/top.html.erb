@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <title>Sample_GoogleMap</title>
 
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFj52OV4F2yLRNV-p19g0Eb_1wunM7yLM&libraries=places&language=ja&callback=initMap"></script>
 
 <style>
@@ -74,6 +75,7 @@ body { height: 100% }
 <div id="map-control-container">
   <button id="toggle-traffic" class="btn btn-success btn-sm toggle-button">トラフィック情報</button>
   <button id="toggle-transit" class="btn btn-secondary btn-sm toggle-button">トランジット情報</button>
+  <button id="toggle-tourist-spots" class="btn btn-success btn-sm toggle-button">観光地情報</button>
 </div>
 <div id="map"></div>
 
@@ -193,8 +195,49 @@ body { height: 100% }
       infowindow.open(map, marker);
     });
 
-    // 以前の観光地を検索してマップにマーカーを追加するロジックをここに追加
-    // ※ここに観光地のマーカーを追加するコードを以前のスタイルで追記
+    var touristSpotMarkers = [];
+    var markerCluster;
+
+    fetch('/tourist_spots')
+      .then(response => response.json())
+      .then(data => {
+        var markers = data.map(spot => {
+          var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(spot.latitude, spot.longitude),
+            title: spot.name,
+          });
+
+          var infowindow = new google.maps.InfoWindow({
+            content: '<div><strong>' + spot.name + '</strong><br>' +
+                     'Category: ' + spot.category + '</div>'
+          });
+
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+
+          return marker;
+        });
+
+        markerCluster = new MarkerClusterer(map, markers, {
+          imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+        });
+        touristSpotMarkers = markers;
+      });
+
+    document.getElementById('toggle-tourist-spots').addEventListener('click', function() {
+      var button = this;
+      var isDisplayed = markerCluster.getMarkers().length > 0;
+      if (isDisplayed) {
+        markerCluster.clearMarkers();
+        button.classList.remove('btn-success');
+        button.classList.add('btn-secondary');
+      } else {
+        markerCluster.addMarkers(touristSpotMarkers);
+        button.classList.remove('btn-secondary');
+        button.classList.add('btn-success');
+      }
+    });
   }
 </script>
 
