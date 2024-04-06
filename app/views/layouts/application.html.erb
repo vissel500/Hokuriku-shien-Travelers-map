@@ -9,10 +9,13 @@
     <%= stylesheet_link_tag "application" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
-
   <body>
-  <%= render 'shared/header' %>
-  <%= yield %>
-  <%= render 'shared/footer' %>
+    <div class="page-container">
+      <main class="content-wrap">
+        <%= render 'shared/header' %>
+        <%= yield %>
+      </main>
+      <%= render 'shared/footer' %>
+    </div>
   </body>
 </html>
