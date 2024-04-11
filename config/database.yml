@@ -83,6 +83,5 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
   database: hokuriku_shien_travelers_map_production
-  username: hokuriku_shien_travelers_map
-  password: <%= ENV["HOKURIKU_SHIEN_TRAVELERS_MAP_DATABASE_PASSWORD"] %>
