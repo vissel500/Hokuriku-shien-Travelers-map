@@ -145,7 +145,7 @@
 
       window.updateMarkers = function(category) {
         markerCluster.clearMarkers();
-        if (category === "All" || category === "全て(ここで表示する観光地ピンのカテゴリを選択)" && isVisible) {
+        if (category === "All" || category === "全て(マップに表示する観光地のカテゴリを選択)" && isVisible) {
           Object.values(markersByCategory).flat().forEach(marker => markerCluster.addMarker(marker, false));
         } else if (isVisible) {
           markersByCategory[category].forEach(marker => markerCluster.addMarker(marker, false));
