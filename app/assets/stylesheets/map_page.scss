@@ -20,12 +20,15 @@ html, body {
   width: 100%;
 }
 
+#map-control-container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 #pac-input {
-  position: absolute;
-  top: 10px;
-  left: 25%;
-  width: 50%;
-  z-index: 5;
   padding: 10px;
   border: 1px solid #ccc;
   background-color: #fff;
@@ -40,9 +43,13 @@ html, body {
 }
 
 #search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  top: 73px;
-  left: 60.5%;
+  top: 155px;
+  left: 27%;
+  transform: translateX(-50%);
   z-index: 5;
 }
 
@@ -51,19 +58,22 @@ html, body {
   font-family: Roboto, Arial, sans-serif;
   font-size: 15px;
   font-weight: 300;
-  margin-left: 12px;
-  padding: 0 11px 0 13px;
   text-overflow: ellipsis;
-  width: 400px;
 }
 
 .controls:focus {
   border-color: #4d90fe;
 }
 
-#map-control-container {
-  position: absolute;
-  top: 110px;
-  left: 190px;
-  z-index: 5;
+@media (max-width: 768px) {
+  #search-container {
+    flex-direction: column;
+    top: 170px;
+    left: 88%;
+  }
+
+  #pac-input, .controls {
+    width: calc(100% - 20px);
+    margin: 5px;
+  }
 }

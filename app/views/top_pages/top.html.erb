@@ -8,22 +8,21 @@
     <input id="pac-input" class="controls" type="text" placeholder="検索...">
     <button id="search-button" class="btn btn-primary btn-sm">検索</button>
   </div>
-  <div id="map-control-container">
-    <button id="toggle-traffic" class="btn btn-success btn-sm toggle-button">トラフィック情報</button>
-    <button id="toggle-transit" class="btn btn-secondary btn-sm toggle-button">トランジット情報</button>
-    <button id="toggle-tourist-spots" class="btn btn-success btn-sm toggle-button">観光地情報</button>
-  </div>
   <div id="map"></div>
 
   <script>
+    var markersByCategory = {};
+    var markerCluster;
+    var isVisible = true;
+
     function initMap() {
       var MyLatLng = new google.maps.LatLng(36.5748441, 136.6483217); // 北陸地方の中心点
       var Options = {
         zoom: 8,
         center: MyLatLng,
-        mapTypeId: 'roadmap'
+        mapTypeId: "roadmap"
       };
-      var map = new google.maps.Map(document.getElementById('map'), Options);
+      var map = new google.maps.Map(document.getElementById("map"), Options);
       map.markers = [];
 
       // TrafficLayer の追加
@@ -35,42 +34,42 @@
       transitLayer.setMap(map);
 
       // トラフィックレイヤーのトグル機能
-      document.getElementById('toggle-traffic').addEventListener('click', function() {
+      document.getElementById("toggle-traffic").addEventListener("click", function() {
         if (trafficLayer.getMap()) {
           trafficLayer.setMap(null);
-          this.classList.remove('btn-success');
-          this.classList.add('btn-secondary');
+          this.classList.remove("btn-success");
+          this.classList.add("btn-secondary");
         } else {
           trafficLayer.setMap(map);
-          this.classList.remove('btn-secondary');
-          this.classList.add('btn-success');
+          this.classList.remove("btn-secondary");
+          this.classList.add("btn-success");
         }
       });
 
       // トランジットレイヤーのトグル機能
-      document.getElementById('toggle-transit').addEventListener('click', function() {
+      document.getElementById("toggle-transit").addEventListener("click", function() {
         if (transitLayer.getMap()) {
           transitLayer.setMap(null);
-          this.classList.remove('btn-secondary');
-          this.classList.add('btn-success');
+          this.classList.remove("btn-secondary");
+          this.classList.add("btn-success");
         } else {
           transitLayer.setMap(map);
-          this.classList.remove('btn-success');
-          this.classList.add('btn-secondary');
+          this.classList.remove("btn-success");
+          this.classList.add("btn-secondary");
         }
       });
 
-      var input = document.getElementById('pac-input');
+      var input = document.getElementById("pac-input");
       map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
       var infowindow = new google.maps.InfoWindow();
       var service = new google.maps.places.PlacesService(map);
 
-      document.getElementById('search-button').addEventListener('click', function() {
-        var input = document.getElementById('pac-input').value;
+      document.getElementById("search-button").addEventListener("click", function() {
+        var input = document.getElementById("pac-input").value;
         if (!input) return;
         var request = {
           query: input,
-          fields: ['name', 'geometry', 'place_id'],
+          fields: ["name", "geometry", "place_id"],
         };
 
         service.findPlaceFromQuery(request, function(results, status) {
@@ -89,7 +88,7 @@
               map.markers.push(marker);
 
               // Place Detailsリクエスト
-              marker.addListener('click', function() {
+              marker.addListener("click", function() {
                 service.getDetails({placeId: place.place_id}, function(result, status) {
                   if (status === google.maps.places.PlacesServiceStatus.OK) {
                     var content = '<div><strong>' + result.name + '</strong><br>' +
@@ -115,16 +114,18 @@
         });
       });
 
-      var touristSpotMarkers = [];
-      var markerCluster;
+      var markerCluster = new MarkerClusterer(map, [], {
+        imagePath: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
+      });
 
-      fetch('/tourist_spots')
+      fetch("/tourist_spots")
         .then(response => response.json())
         .then(data => {
-          var markers = data.map(spot => {
+          data.forEach(spot => {
             var marker = new google.maps.Marker({
-              position: new google.maps.LatLng(spot.latitude, spot.longitude),
-              title: spot.name,
+            position: new google.maps.LatLng(spot.latitude, spot.longitude),
+            title: spot.name,
+            map: map
             });
 
             var infowindow = new google.maps.InfoWindow({
@@ -132,32 +133,35 @@
                        'Category: ' + spot.category + '</div>'
             });
 
-            marker.addListener('click', function() {
+            marker.addListener("click", function() {
               infowindow.open(map, marker);
             });
 
-            return marker;
+            markersByCategory[spot.category] = markersByCategory[spot.category] || [];
+            markersByCategory[spot.category].push(marker);
           });
-
-          markerCluster = new MarkerClusterer(map, markers, {
-            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-          });
-          touristSpotMarkers = markers;
+          updateMarkers("All");
         });
 
-      document.getElementById('toggle-tourist-spots').addEventListener('click', function() {
-        var button = this;
-        var isDisplayed = markerCluster.getMarkers().length > 0;
-        if (isDisplayed) {
-          markerCluster.clearMarkers();
-          button.classList.remove('btn-success');
-          button.classList.add('btn-secondary');
-        } else {
-          markerCluster.addMarkers(touristSpotMarkers);
-          button.classList.remove('btn-secondary');
-          button.classList.add('btn-success');
+      window.updateMarkers = function(category) {
+        markerCluster.clearMarkers();
+        if (category === "All" || category === "全て(ここで表示する観光地ピンのカテゴリを選択)" && isVisible) {
+          Object.values(markersByCategory).flat().forEach(marker => markerCluster.addMarker(marker, false));
+        } else if (isVisible) {
+          markersByCategory[category].forEach(marker => markerCluster.addMarker(marker, false));
         }
+      };
+
+      document.getElementById("toggle-tourist-spots").addEventListener("click", function() {
+        isVisible = !isVisible;
+        markerCluster.clearMarkers();
+        if (isVisible) {
+          updateMarkers(document.getElementById("category-selector").value);
+        }
+        this.classList.toggle("btn-success", isVisible);
+        this.classList.toggle("btn-secondary", !isVisible);
       });
     }
+    window.updateMarkers = updateMarkers;
   </script>
 </body>
