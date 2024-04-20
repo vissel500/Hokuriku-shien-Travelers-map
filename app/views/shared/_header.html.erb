@@ -1,49 +1,56 @@
-<header class="d-flex flex-wrap justify-content-center border-bottom p-2 bg-info">
-  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none p-2 text-white">
-    <span class="fs-4 fw-semibold fst-italic text-primary">北陸支援 トラベラーズ マップ</span>
-  </a>
-
-  <ul class="nav nav-pills">
-    <select id="category-selector" class="form-select form-select-sm" onchange="window.updateMarkers(this.value)">
-      <option value="全て(マップに表示する観光地のカテゴリを選択)">全て(マップに表示する観光地のカテゴリを選択)</option>
-      <option value="伝統文化・文化体験(体験施設)・歴史的建造物・城・庭園・神社・お寺・史跡">伝統文化・文化体験(体験施設)・歴史的建造物・城・庭園・神社・お寺・史跡</option>
-      <option value="景勝地・展望台・港・自然">景勝地・展望台・港・自然</option>
-      <option value="公園・植物園・ジオパーク・テーマパーク・遊園地・ビーチ・プール・スキー場・乗り物・その他アクティビティ">公園・植物園・ジオパーク・テーマパーク・遊園地・ビーチ・プール・スキー場・乗り物・その他アクティビティ</option>
-      <option value="総合博物館">総合博物館</option>
-      <option value="動物園・水族館・生き物関係の博物館">動物園・水族館・生き物関係の博物館</option>
-      <option value="博物館(伝統文化・工芸(和風)・歴史・文学・偉人)">博物館(伝統文化・工芸(和風)・歴史・文学・偉人)</option>
-      <option value="博物館(美術・芸術・工芸(洋風)・絵・音楽)">博物館(美術・芸術・工芸(洋風)・絵・音楽)</option>
-      <option value="博物館(科学技術・宇宙・産業・工業製品・特産品)">博物館(科学技術・宇宙・産業・工業製品・特産品)</option>
-      <option value="博物館(自然・環境)">博物館(自然・環境)</option>
-      <option value="食べ物・お酒・ワインなどに関する施設及び博物館">食べ物・お酒・ワインなどに関する施設及び博物館</option>
-      <option value="その他観光名所(街並み・通り・道・湧水・シンボル・名物・展示など)">その他観光名所(街並み・通り・道・湧水・シンボル・名物・展示など)</option>
-      <option value="ご飯屋・レストラン・カフェ">ご飯屋・レストラン・カフェ</option>
-      <option value="買い物・お土産屋・市場">買い物・お土産屋・市場</option>
-      <option value="宿泊施設・温泉施設(足湯含む)">宿泊施設・温泉施設(足湯含む)</option>
-      <option value="サービスエリア・道の駅・鉄道駅">サービスエリア・道の駅・鉄道駅</option>
-      <option value="案内所">案内所</option>
-    </select>
-    <li class="nav-item">
-      <div id="map-control-container" class="nav-link">
-        <button id="toggle-traffic" class="btn btn-success btn-sm me-1 mb-1 toggle-button">トラフィック情報</button>
-        <button id="toggle-transit" class="btn btn-secondary btn-sm me-1 mb-1 toggle-button">トランジット情報</button>
-        <button id="toggle-tourist-spots" class="btn btn-success btn-sm mb-1 toggle-button">観光地情報</button>
-      </div>
-    </li>
-    <% if user_signed_in? %>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="d-flex flex-wrap justify-content-center border-bottom p-2">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none p-2 text-white">
+      <h2>北陸支援 トラベラーズ マップ</h2>
+    </a>
+  
+    <ul class="nav nav-pills">
+      <select id="category-selector" class="form-select form-select-sm" onchange="window.updateMarkers(this.value)">
+        <option value="全て(マップに表示する観光地のカテゴリを選択)">全て(マップに表示する観光地のカテゴリを選択)</option>
+        <option value="伝統文化・文化体験(体験施設)・歴史的建造物・城・庭園・神社・お寺・史跡">伝統文化・文化体験(体験施設)・歴史的建造物・城・庭園・神社・お寺・史跡</option>
+        <option value="景勝地・展望台・港・自然">景勝地・展望台・港・自然</option>
+        <option value="公園・植物園・ジオパーク・テーマパーク・遊園地・ビーチ・プール・スキー場・乗り物・その他アクティビティ">公園・植物園・ジオパーク・テーマパーク・遊園地・ビーチ・プール・スキー場・乗り物・その他アクティビティ</option>
+        <option value="総合博物館">総合博物館</option>
+        <option value="動物園・水族館・生き物関係の博物館">動物園・水族館・生き物関係の博物館</option>
+        <option value="博物館(伝統文化・工芸(和風)・歴史・文学・偉人)">博物館(伝統文化・工芸(和風)・歴史・文学・偉人)</option>
+        <option value="博物館(美術・芸術・工芸(洋風)・絵・音楽)">博物館(美術・芸術・工芸(洋風)・絵・音楽)</option>
+        <option value="博物館(科学技術・宇宙・産業・工業製品・特産品)">博物館(科学技術・宇宙・産業・工業製品・特産品)</option>
+        <option value="博物館(自然・環境)">博物館(自然・環境)</option>
+        <option value="食べ物・お酒・ワインなどに関する施設及び博物館">食べ物・お酒・ワインなどに関する施設及び博物館</option>
+        <option value="その他観光名所(街並み・通り・道・湧水・シンボル・名物・展示など)">その他観光名所(街並み・通り・道・湧水・シンボル・名物・展示など)</option>
+        <option value="ご飯屋・レストラン・カフェ">ご飯屋・レストラン・カフェ</option>
+        <option value="買い物・お土産屋・市場">買い物・お土産屋・市場</option>
+        <option value="宿泊施設・温泉施設(足湯含む)">宿泊施設・温泉施設(足湯含む)</option>
+        <option value="サービスエリア・道の駅・鉄道駅">サービスエリア・道の駅・鉄道駅</option>
+        <option value="案内所">案内所</option>
+      </select>
       <li class="nav-item">
-        <%= link_to "ログアウト", destroy_user_session_path, class: "btn btn-primary rounded px-3 me-2 mt-2", data: { turbo_method: :delete } %>
+        <div id="map-control-container" class="nav-link">
+          <button id="toggle-traffic" class="btn btn-success btn-sm me-1 mb-1 toggle-button">トラフィック情報</button>
+          <button id="toggle-transit" class="btn btn-secondary btn-sm me-1 mb-1 toggle-button">トランジット情報</button>
+          <button id="toggle-tourist-spots" class="btn btn-success btn-sm mb-1 toggle-button">観光地情報</button>
+        </div>
       </li>
-      <li class="nav-item">
-        <%= link_to "プロフィール", edit_user_registration_path, class: "btn btn-primary rounded px-3 mt-2" %>
-      </li>
-    <% else %>
-      <li class="nav-item">
-        <%= link_to "会員登録", new_user_registration_path, class: "btn btn-primary rounded px-3 me-2 mt-2" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary rounded px-3 mt-2" %>
-      </li>
-    <% end %>
-  </ul>
-</header>
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <%= link_to "ログアウト", destroy_user_session_path, class: "btn btn-primary btn-sm rounded px-3 me-2 mt-2", data: { turbo_method: :delete } %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "プロフィール", edit_user_registration_path, class: "btn btn-primary btn-sm rounded px-3 mt-2" %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to "会員登録", new_user_registration_path, class: "btn btn-primary btn-sm rounded px-3 me-2 mt-2" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary btn-sm rounded px-3 mt-2" %>
+        </li>
+      <% end %>
+    </ul>
+  </header>
+</body>
