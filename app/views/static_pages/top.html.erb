@@ -1,0 +1,89 @@
+<body>
+  <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-pause=false>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <%= image_tag "kuma.jpg", class: "d-block w-100" %>
+      </div>
+      <div class="carousel-item">
+        <%= image_tag "kanazawahigashicyaya.jpg", class: "d-block w-100" %>
+      </div>
+      <div class="carousel-item">
+        <%= image_tag "tulip.jpg", class: "d-block w-100" %>
+      </div>
+      <div class="carousel-item">
+        <%= image_tag "gassyozukuri.jpg", class: "d-block w-100" %>
+      </div>
+      <div class="carousel-item">
+        <%= image_tag "oshima.jpg", class: "d-block w-100" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column px-4">
+    <div class="mb-5 mt-5 mt-md-6">
+      <div class="d-flex justify-content-center px-4">
+        <div class="h1 fw-bold">北陸の魅力、再発見。</div>
+      </div>
+      <div class="d-flex justify-content-center mt-3 px-4">
+        <div class="fw-bold">北陸トラベラーズマップは、まだあまり知られていない観光地含め多くの観光スポットがある北陸地方の魅力を発見し、北陸旅行への一助となるサービスです。</div>
+      </div>
+    </div>
+
+    <div class="mb-5 mt-5 mt-md-6">
+      <div class="d-flex justify-content-center px-4">
+        <div class="h1 fw-bold">マップの使い方</div>
+      </div>
+      <div class="d-flex justify-content-center mt-3 px-4">
+        <div class="fw-bold">マップには「検索バー」「観光地のカテゴリ別表示」「トラフィック情報」「トランジット情報」「観光地情報」などの機能があります。</div>
+      </div>
+      <div class="d-flex justify-content-center mt-3 px-4">
+        <div class="fw-bold">「検索バー」からは、自分の知りたい場所を検索する事ができ、検索した地点のピンを選択すると、
+           その場所の詳細な情報(名前、住所、電話番号、ウェブサイト、営業時間、写真、レビュー)を知る事ができます。</div>
+      </div>
+      <div class="d-flex justify-content-center mt-3 px-4">
+        <div class="fw-bold">「観光地のカテゴリ別表示」は、「全て(マップに表示する観光地のカテゴリを選択)」と表示されているドロップダウンメニューで、
+           16種類の観光地カテゴリから興味のあるカテゴリを選択する事でそのカテゴリに属する観光地のピンのみをマップ上に表示させる事ができ、
+           自分の興味のあるカテゴリの観光地がどこにどれくらいあるのかを分かりやすく知る事ができます。</div>
+      </div>
+      <div class="d-flex justify-content-center mt-3 px-4">
+        <div class="fw-bold">「観光地情報」では、マップ上に常時表示されている北陸地方の観光地の地点データの表示・非表示を切り替える事ができます。
+           この観光地データは千件以上の北陸地方の観光地の場所が収録されており、マップを拡大していくと、観光地のピンの集積度によってピンのアイコンが赤色→黄色→青色と切り替わっていき、
+           詳細な範囲になるまでマップを拡大すると、その地域周辺の観光地のピンが個別に表示され、ピンを選択する事でその観光地の名前と施設の種類の情報が知る事ができます。
+           選択した場所のより詳細な情報を知りたい場合、一旦「観光地情報」を非表示に切り替え、その場所の名前を検索バーで検索する事でより詳細な情報を知る事ができます。</div>
+      </div>
+      <div class="d-flex justify-content-center mt-3 px-4">
+        <div class="fw-bold">「トラフィック情報」では、現在の交通情報の表示・非表示を切り替える事ができ、現在の交通情報を知る事ができます。
+           交通情報の見方としては、緑色が交通が混雑していない事を示しており、色が赤色に近くなる程混雑が発生している事を示します。
+           また、通行止めの場所は、赤色の破線で通行止めのマークが表示されます。</div>
+      </div>
+      <div class="d-flex justify-content-center mt-3 px-4">
+        <div class="fw-bold">「トランジット情報」では、交通機関についての詳細情報の表示・非表示を切り替える事ができます。
+           北陸地方周辺の場合、道路の番号区分の情報が表示され、気になる観光地周辺に通っている道路などの詳細情報を知る事ができます。</div>
+      </div>
+      <div class="d-flex justify-content-center mt-3 px-4">
+        <div class="fw-bold">その他、標準の地図と航空写真の切り替え、航空写真の「ラベル」ボタンで航空写真で表示された地図への「トラフィック情報」「トランジット情報」「観光地情報」の表示の機能があります。</div>
+      </div>
+    </div>
+
+    <div class="mx-auto">
+      <div class="mb-5 mt-5 my-5 d-flex align-items-center">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold">早速使ってみよう</h5>
+          <p class="fw-bold">北陸にはまだまだ知られていない魅力的な観光スポットが沢山あるよ！</p>
+          <div class="mt-3 d-flex justify-content-center">
+            <%= link_to "見にいく！", map_path, class: "btn btn-info" %>
+          </div>
+        </div>
+        <div class="card" style="width: 91.67%; max-width: 384px; height: auto;">
+          <figure class="m-0">
+            <%= image_tag "kuma.jpg", class: "img-fluid rounded-3 mt-3 mt-md-0" %>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center my-5">
+      <%= link_to "北陸トラベラーズマップで北陸へ行こう！", map_path, class: "btn btn-success h1" %>
+    </div>
+  </div>
+</body>

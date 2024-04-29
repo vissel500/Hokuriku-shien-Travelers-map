@@ -1,0 +1,17 @@
+// bootstrapのボタンを変更
+.btn {
+  font-weight: bold !important;
+  
+  &:hover {
+    color: #ffffff !important;
+  }
+}
+
+// 白背景ボタンのクラス(btn btn-outline-primaryと組み合わせる)
+.btn-white-primary {
+  background-color: #fff !important;
+
+  &:hover {
+    background-color: $primary !important;
+  }
+}

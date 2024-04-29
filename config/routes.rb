@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root 'top_pages#top'
+  root 'static_pages#top'
+  get 'map', to: 'map_pages#map'
   resources :tourist_spots, only: %i[index]
-  get 'about', to: 'pages#about'
 end
