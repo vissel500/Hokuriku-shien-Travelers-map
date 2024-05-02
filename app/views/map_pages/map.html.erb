@@ -1,6 +1,24 @@
 <head>
-  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANC15Na85B6UwwYHXVP9NturgBAe0BpyQ&libraries=places&language=ja&callback=initMap"></script>
+  <script>
+    document.addEventListener("turbo:load", function() {
+      if (!window.google || !window.MarkerClusterer) {
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js";
+        script.onload = loadGoogleMaps;
+        document.head.appendChild(script);
+      } else {
+        initMap();
+      }
+    });
+
+    function loadGoogleMaps() {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyANC15Na85B6UwwYHXVP9NturgBAe0BpyQ&libraries=places&language=ja&callback=initMap";
+      document.head.appendChild(script);
+    }
+  </script>
 </head>
 
 <body>
