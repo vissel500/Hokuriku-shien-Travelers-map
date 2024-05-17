@@ -4,32 +4,6 @@
   </a>
 
   <ul class="nav nav-pills">
-    <select id="category-selector" class="form-select form-select-sm" onchange="window.updateMarkers(this.value)">
-      <option value="全て(マップに表示する観光地のカテゴリを選択)">全て(マップに表示する観光地のカテゴリを選択)</option>
-      <option value="伝統文化・文化体験(体験施設)・歴史的建造物・城・庭園・神社・お寺・史跡">伝統文化・文化体験(体験施設)・歴史的建造物・城・庭園・神社・お寺・史跡</option>
-      <option value="景勝地・展望台・港・自然">景勝地・展望台・港・自然</option>
-      <option value="公園・植物園・ジオパーク・テーマパーク・遊園地・ビーチ・プール・スキー場・乗り物・その他アクティビティ">公園・植物園・ジオパーク・テーマパーク・遊園地・ビーチ・プール・スキー場・乗り物・その他アクティビティ</option>
-      <option value="総合博物館">総合博物館</option>
-      <option value="動物園・水族館・生き物関係の博物館">動物園・水族館・生き物関係の博物館</option>
-      <option value="博物館(伝統文化・工芸(和風)・歴史・文学・偉人)">博物館(伝統文化・工芸(和風)・歴史・文学・偉人)</option>
-      <option value="博物館(美術・芸術・工芸(洋風)・絵・音楽)">博物館(美術・芸術・工芸(洋風)・絵・音楽)</option>
-      <option value="博物館(科学技術・宇宙・産業・工業製品・特産品)">博物館(科学技術・宇宙・産業・工業製品・特産品)</option>
-      <option value="博物館(自然・環境)">博物館(自然・環境)</option>
-      <option value="食べ物・お酒・ワインなどに関する施設及び博物館">食べ物・お酒・ワインなどに関する施設及び博物館</option>
-      <option value="その他観光名所(街並み・通り・道・湧水・シンボル・名物・展示など)">その他観光名所(街並み・通り・道・湧水・シンボル・名物・展示など)</option>
-      <option value="ご飯屋・レストラン・カフェ">ご飯屋・レストラン・カフェ</option>
-      <option value="買い物・お土産屋・市場">買い物・お土産屋・市場</option>
-      <option value="宿泊施設・温泉施設(足湯含む)">宿泊施設・温泉施設(足湯含む)</option>
-      <option value="サービスエリア・道の駅・鉄道駅">サービスエリア・道の駅・鉄道駅</option>
-      <option value="案内所">案内所</option>
-    </select>
-    <li class="nav-item">
-      <div id="map-control-container" class="nav-link">
-        <button id="toggle-traffic" class="btn btn-success btn-sm me-1 mb-1 toggle-button">トラフィック情報</button>
-        <button id="toggle-transit" class="btn btn-secondary btn-sm me-1 mb-1 toggle-button">トランジット情報</button>
-        <button id="toggle-tourist-spots" class="btn btn-success btn-sm mb-1 toggle-button">観光地情報</button>
-      </div>
-    </li>
     <% if user_signed_in? %>
       <li class="nav-item">
         <%= link_to "ログアウト", destroy_user_session_path, class: "btn btn-primary btn-sm rounded px-3 me-2 mt-2", data: { turbo_method: :delete } %>
@@ -46,4 +20,41 @@
       </li>
     <% end %>
   </ul>
+
+  <% if is_map_page? %>
+    <ul class="nav nav-pills">
+      <select id="category-selector" class="form-select form-select-sm" onchange="window.updateMarkers(this.value)">
+        <option value="全て(マップに表示する観光地のカテゴリを選択)">全て(マップに表示する観光地のカテゴリを選択)</option>
+        <option value="伝統文化・文化体験(体験施設)・歴史的建造物・城・庭園・神社・お寺・史跡">伝統文化・文化体験(体験施設)・歴史的建造物・城・庭園・神社・お寺・史跡</option>
+        <option value="景勝地・展望台・港・自然">景勝地・展望台・港・自然</option>
+        <option value="公園・植物園・ジオパーク・テーマパーク・遊園地・ビーチ・プール・スキー場・乗り物・その他アクティビティ">公園・植物園・ジオパーク・テーマパーク・遊園地・ビーチ・プール・スキー場・乗り物・その他アクティビティ</option>
+        <option value="総合博物館">総合博物館</option>
+        <option value="動物園・水族館・生き物関係の博物館">動物園・水族館・生き物関係の博物館</option>
+        <option value="博物館(伝統文化・工芸(和風)・歴史・文学・偉人)">博物館(伝統文化・工芸(和風)・歴史・文学・偉人)</option>
+        <option value="博物館(美術・芸術・工芸(洋風)・絵・音楽)">博物館(美術・芸術・工芸(洋風)・絵・音楽)</option>
+        <option value="博物館(科学技術・宇宙・産業・工業製品・特産品)">博物館(科学技術・宇宙・産業・工業製品・特産品)</option>
+        <option value="博物館(自然・環境)">博物館(自然・環境)</option>
+        <option value="食べ物・お酒・ワインなどに関する施設及び博物館">食べ物・お酒・ワインなどに関する施設及び博物館</option>
+        <option value="その他観光名所(街並み・通り・道・湧水・シンボル・名物・展示など)">その他観光名所(街並み・通り・道・湧水・シンボル・名物・展示など)</option>
+        <option value="ご飯屋・レストラン・カフェ">ご飯屋・レストラン・カフェ</option>
+        <option value="買い物・お土産屋・市場">買い物・お土産屋・市場</option>
+        <option value="宿泊施設・温泉施設(足湯含む)">宿泊施設・温泉施設(足湯含む)</option>
+        <option value="サービスエリア・道の駅・鉄道駅">サービスエリア・道の駅・鉄道駅</option>
+        <option value="案内所">案内所</option>
+      </select>
+      <li class="nav-item mt-1">
+        <div id="search-container">
+            <input id="pac-input" class="controls" type="text" placeholder="検索...">
+            <button id="search-button" class="btn btn-primary btn-sm">検索</button>
+        </div>
+      </li>
+      <li class="nav-item">
+        <div id="map-control-container" class="nav-link">
+          <button id="toggle-traffic" class="btn btn-success btn-sm me-1 mb-1 toggle-button">トラフィック情報</button>
+          <button id="toggle-transit" class="btn btn-secondary btn-sm me-1 mb-1 toggle-button">トランジット情報</button>
+          <button id="toggle-tourist-spots" class="btn btn-success btn-sm mb-1 toggle-button">観光地情報</button>
+        </div>
+      </li>
+    </ul>
+  <% end %>
 </header>

@@ -22,9 +22,6 @@
 </head>
 
 <body>
-  <div id="search-container">
-    <input id="pac-input" class="controls" type="text" placeholder="検索...">
-  </div>
   <div id="map"></div>
 
   <script>
@@ -79,37 +76,61 @@
       });
 
       var input = document.getElementById("pac-input");
-      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
       var autocomplete = new google.maps.places.Autocomplete(input, {componentRestrictions: {country: "jp"}});
       autocomplete.bindTo("bounds", map);
-
-      var infowindow = new google.maps.InfoWindow();
       autocomplete.addListener("place_changed", function() {
-        infowindow.close();
-        var place = autocomplete.getPlace();
-        if (!place.geometry) return;
+      });
+      var infowindow = new google.maps.InfoWindow();
+      var service = new google.maps.places.PlacesService(map);
 
-        if (place.geometry.viewport) {
-          map.fitBounds(place.geometry.viewport);
-        } else {
-          map.setCenter(place.geometry.location);
-          map.setZoom(17);
-        }
+      document.getElementById("search-button").addEventListener("click", function() {
+        var input = document.getElementById("pac-input").value;
+        if (!input) return;
+        var request = {
+          query: input,
+          fields: ["name", "geometry", "place_id"],
+        };
 
-        var marker = new google.maps.Marker({
-          map: map,
-          position: place.geometry.location
+        service.findPlaceFromQuery(request, function(results, status) {
+          if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+            map.markers.forEach(marker => marker.setMap(null));
+            map.markers = [];
+            var bounds = new google.maps.LatLngBounds();
+            results.forEach(place => {
+              if (!place.geometry) return;
+
+              var marker = new google.maps.Marker({
+                  map: map,
+                  title: place.name,
+                  position: place.geometry.location
+              });
+              map.markers.push(marker);
+
+              // Place Detailsリクエスト
+              marker.addListener("click", function() {
+                service.getDetails({placeId: place.place_id}, function(result, status) {
+                  if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    var content = '<div><strong>' + result.name + '</strong><br>' +
+                                  'Address: ' + result.formatted_address + '<br>' +
+                                  'Phone: ' + (result.formatted_phone_number || 'N/A') + '<br>' +
+                                  'Website: ' + (result.website ? '<a href="' + result.website + '">' + result.website + '</a>' : 'N/A') + '<br>' +
+                                  'Hours: ' + (result.opening_hours ? result.opening_hours.weekday_text.join(', ') : 'N/A') + '<br>' +
+                                  '<img src="' + (result.photos && result.photos.length ? result.photos[0].getUrl() : '') + '" alt="Place image" style="width:100px;"><br>' +
+                                  'Reviews: ' + (result.reviews && result.reviews.length ? result.reviews[0].text : 'N/A') + '</div>';
+                    infowindow.setContent(content);
+                    infowindow.open(map, marker);
+                  }
+                });
+              });
+              if (place.geometry.viewport) {
+                  bounds.union(place.geometry.viewport);
+              } else {
+                  bounds.extend(place.geometry.location);
+              }
+            });
+            map.fitBounds(bounds);
+          }
         });
-
-        var content = '<div><strong>' + place.name + '</strong><br>' +
-                      'Address: ' + place.formatted_address + '<br>' +
-                      'Phone: ' + (place.formatted_phone_number || 'N/A') + '<br>' +
-                      'Website: ' + (place.website ? '<a href="' + place.website + '">' + place.website + '</a>' : 'N/A') + '<br>' +
-                      'Hours: ' + (place.opening_hours ? place.opening_hours.weekday_text.join(', ') : 'N/A') + '<br>' +
-                      '<img src="' + (place.photos && place.photos.length ? place.photos[0].getUrl() : '') + '" alt="Place image" style="width:100px;"><br>' +
-                      'Reviews: ' + (place.reviews && place.reviews.length ? place.reviews[0].text : 'N/A') + '</div>';
-        infowindow.setContent(content);
-        infowindow.open(map, marker);
       });
 
       var markerCluster = new MarkerClusterer(map, [], {
