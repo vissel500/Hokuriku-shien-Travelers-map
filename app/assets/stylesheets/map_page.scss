@@ -61,16 +61,3 @@ html, body {
 .controls:focus {
   border-color: #4d90fe;
 }
-
-@media (max-width: 768px) {
-  #search-container {
-    flex-direction: column;
-    top: 170px;
-    left: 88%;
-  }
-
-  #pac-input, .controls {
-    width: calc(100% - 20px);
-    margin: 5px;
-  }
-}
