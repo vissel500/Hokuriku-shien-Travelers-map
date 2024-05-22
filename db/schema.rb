@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_05_062416) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_21_041611) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "tourist_spot_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tourist_spot_id"], name: "index_bookmarks_on_tourist_spot_id"
+    t.index ["user_id", "tourist_spot_id"], name: "index_bookmarks_on_user_id_and_tourist_spot_id", unique: true
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
 
   create_table "tourist_spots", force: :cascade do |t|
     t.string "name"
@@ -38,4 +48,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_05_062416) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bookmarks", "tourist_spots"
+  add_foreign_key "bookmarks", "users"
 end
