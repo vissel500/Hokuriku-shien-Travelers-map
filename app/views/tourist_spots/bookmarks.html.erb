@@ -1,0 +1,23 @@
+<h1 class="text-center my-4">ブックマーク一覧</h1>
+
+<% if @bookmark_tourist_spots.any? %>
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      <% @bookmark_tourist_spots.each do |spot| %>
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= spot['name'] %>
+              </h5>
+              <p class="card-text"><strong>住所:</strong> <%= spot['address'] %></p>
+              <p class="card-text"><strong>カテゴリ:</strong> <%= spot['category'] %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <p class="text-center mt-4">ブックマークされた観光地はありません。</p>
+<% end %>
