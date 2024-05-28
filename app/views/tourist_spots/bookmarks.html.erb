@@ -1,4 +1,3 @@
-
 <h1 class="text-center my-4">ブックマーク一覧</h1>
 
 <% if @bookmark_tourist_spots.any? %>
@@ -50,9 +49,7 @@
           if (data.error) {
             alert('操作に失敗しました: ' + data.error);
           } else {
-            this.setAttribute("data-bookmarked", !bookmarked);
-            this.querySelector("i").classList.toggle("bi-star-fill");
-            this.querySelector("i").classList.toggle("bi-star");
+            location.reload();
           }
         }).catch(error => {
           console.error("Error:", error);
