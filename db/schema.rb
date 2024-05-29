@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_21_041611) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_29_011646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_21_041611) do
     t.index ["tourist_spot_id"], name: "index_bookmarks_on_tourist_spot_id"
     t.index ["user_id", "tourist_spot_id"], name: "index_bookmarks_on_user_id_and_tourist_spot_id", unique: true
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
+
+  create_table "inquiries", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.text "message", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tourist_spots", force: :cascade do |t|
