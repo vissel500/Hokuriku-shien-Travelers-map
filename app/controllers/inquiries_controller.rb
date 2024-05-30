@@ -6,13 +6,27 @@ class InquiriesController < ApplicationController
   end
 
   def confirm
-    @inquiry = Inquiry.new(inquiry_params)
-    if @inquiry.invalid?
-      render :new
+    if request.post?
+      @inquiry = Inquiry.new(inquiry_params)
+      if @inquiry.invalid?
+        render :new
+        return
+      end
+      session[:inquiry_data] = inquiry_params
+    elsif session[:inquiry_data]
+      @inquiry = Inquiry.new(session[:inquiry_data])
+    else
+      redirect_to new_inquiry_path
+      return
     end
   end
 
   def back
+    if request.get?
+      redirect_to new_inquiry_path
+      return
+    end
+
     @inquiry = Inquiry.new(inquiry_params)
     render :new
   end

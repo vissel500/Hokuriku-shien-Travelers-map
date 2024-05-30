@@ -4,7 +4,7 @@
 <div class="container">
   <div class="card mb-4">
     <div class="card-body">
-      <%= form_with model: @inquiry, local: true, url: inquiries_path, data: { turbo: false, action: "submit->form-handler#submitWithPopup" } do |form| %>
+      <%= form_with model: @inquiry, local: true, url: inquiries_path, data: { turbo: false } do |form| %>
         <div class="form-group mb-3">
           <%= form.label :name, "お名前", class: "form-label" %>
           <p class="form-control-plaintext"><%= @inquiry.name %></p>
@@ -24,7 +24,7 @@
         </div>
 
         <div class="actions">
-          <%= form.submit "送信", class: "btn btn-success" %>
+          <%= form.submit "送信", class: "btn btn-success", id: "submit-button" %>
         </div>
       <% end %>
     </div>
@@ -39,3 +39,14 @@
     </div>
   <% end %>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector("form");
+    form.addEventListener("submit", function() {
+      const submitButton = document.getElementById("submit-button");
+      submitButton.disabled = true;
+      submitButton.value = "送信中...";
+    });
+  });
+</script>

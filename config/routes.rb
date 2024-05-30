@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   resources :bookmarks, only: %i[create destroy]
   resources :inquiries, only: %i[new create] do
     collection do
-      post :confirm
-      post :back
+      match :confirm, via: %i[get post]
+      match :back, via: %i[get post]
     end
   end
   get "thank_you", to: "inquiries#thank_you", as: "thank_you"
