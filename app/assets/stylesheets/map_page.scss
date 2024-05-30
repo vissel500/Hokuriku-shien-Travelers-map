@@ -61,3 +61,9 @@ html, body {
 .controls:focus {
   border-color: #4d90fe;
 }
+
+.dropdown-menu {
+  top: auto !important;
+  left: auto !important;
+  right: 0 !important;
+}
