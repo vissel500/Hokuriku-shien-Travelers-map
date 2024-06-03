@@ -1,1 +1,8 @@
 * { font-family: "Zen Maru Gothic", serif; }
+
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+    max-width: none;
+  }
+}
