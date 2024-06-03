@@ -67,3 +67,16 @@ html, body {
   left: auto !important;
   right: 0 !important;
 }
+
+@media (max-width: 768px) {
+  #category-selector {
+    margin-top: 3px;
+  }
+
+  #search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3px;
+  }
+}
