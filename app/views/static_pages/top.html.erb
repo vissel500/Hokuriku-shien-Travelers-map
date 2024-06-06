@@ -67,15 +67,34 @@
   <div class="mx-auto">
     <div class="mb-5 mt-5 my-5 d-flex align-items-center">
       <div class="card-body text-center">
-        <h5 class="card-title fw-bold">早速使ってみよう</h5>
-        <p class="fw-bold">北陸にはまだまだ知られていない魅力的な観光スポットが沢山あるよ！</p>
+        <h5 class="card-title fw-bold">マップを使ってみよう</h5>
+        <p class="fw-bold">地元の人も、北陸へ行きたい人も！<br>
+                          あなたの気になる観光スポットを探してみよう</p>
         <div class="mt-3 d-flex justify-content-center">
-          <%= link_to "見にいく！", map_path, class: "btn btn-info" %>
+          <%= link_to "使ってみる！", map_path, class: "btn btn-info" %>
         </div>
       </div>
       <div class="card" style="width: 91.67%; max-width: 384px; height: auto;">
         <figure class="m-0">
-          <%= image_tag "kuma.jpg", class: "img-fluid rounded-3" %>
+          <%= image_tag "map_page.jpg", class: "img-fluid rounded-3" %>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-auto">
+    <div class="mb-5 mt-5 my-5 d-flex align-items-center">
+      <div class="card-body text-center">
+        <h5 class="card-title fw-bold">北陸各地への行き方検索ツール</h5>
+        <p class="fw-bold">北陸へ行きたいな、と思っている方へ。<br>
+                          あなたの街から北陸各地への行き方を調べよう</p>
+        <div class="mt-3 d-flex justify-content-center">
+          <%= link_to "調べる！", movement_methods_path, class: "btn btn-info" %>
+        </div>
+      </div>
+      <div class="card" style="width: 91.67%; max-width: 384px; height: auto;">
+        <figure class="m-0">
+          <%= image_tag "movement_methods.jpg", class: "img-fluid rounded-3" %>
         </figure>
       </div>
     </div>

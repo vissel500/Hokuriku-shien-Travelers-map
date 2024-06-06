@@ -13,6 +13,7 @@
         <li><%= link_to "ログアウト", destroy_user_session_path, class: "dropdown-item", data: { turbo_method: :delete } %></li>
         <li><%= link_to "マップ", map_path, class: "dropdown-item" %></li>
         <li><%= link_to "ブックマーク", bookmarks_tourist_spots_path, class: "dropdown-item" %></li>
+        <li><%= link_to "行き方検索", movement_methods_path, class: "dropdown-item" %></li>
       </ul>
     </div>
   <% else %>
@@ -24,6 +25,7 @@
         <li><%= link_to "会員登録", new_user_registration_path, class: "dropdown-item" %></li>
         <li><%= link_to "ログイン", new_user_session_path, class: "dropdown-item" %></li>
         <li><%= link_to "マップ", map_path, class: "dropdown-item" %></li>
+        <li><%= link_to "行き方検索", movement_methods_path, class: "dropdown-item" %></li>
       </ul>
     </div>
   <% end %>

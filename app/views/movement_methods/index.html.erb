@@ -1,0 +1,406 @@
+<div class="container py-5">
+  <div class="mb-5 text-center">
+    <div class="h1 font-weight-bold">北陸各地への行き方検索ツール</div>
+  </div>
+
+  <div class="text-center">
+    <p class="mt-4 h4">北陸の行きたい場所へ、あなたの街からの行き方を調べよう</p>
+    <p class="mt-4">行きたいエリアを選択して下さい。</p>
+    <p>※Google Mapに移動します</p>
+    <div class="mt-5">
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "金沢", google_maps_directions_url("金沢市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          金沢・かほく・
+          <ruby>
+            <rb>津幡町</rb>
+            <rt>つばたまち</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>内灘町</rb>
+            <rt>うちなだまち</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>野々市</rb>
+            <rt>ののいち</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "加賀", google_maps_directions_url("加賀市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          加賀・小松・
+          <ruby>
+            <rb>能美</rb>
+            <rt>のみ</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>川北町</rb>
+            <rt>かわきたまち</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "白山", google_maps_directions_url("白山市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          <ruby>
+            <rb>白山</rb>
+            <rt>はくさん</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "羽咋(能登南部)", google_maps_directions_url("羽咋市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          <ruby>
+            <rb>羽咋</rb>
+            <rt>はくい</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>宝達志水町</rb>
+            <rt>ほうだつしみずちょう</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "福井", google_maps_directions_url("福井市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          福井・あわら・
+          <ruby>
+            <rb>坂井市</rb>
+            <rt>さかいし</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "大野(永平寺・奥越)", google_maps_directions_url("大野市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          <ruby>
+            <rb>大野市</rb>
+            <rt>おおのし</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>勝山市</rb>
+            <rt>かつやまし</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>永平寺町</rb>
+            <rt>えいへいじちょう</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "越前(丹南)", google_maps_directions_url("越前市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          <ruby>
+            <rb>越前</rb>
+            <rt>えちぜん</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>南越前</rb>
+            <rt>みなみえちぜん</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>鯖江</rb>
+            <rt>さばえ</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>池田町</rb>
+            <rt>いけだちょう</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "敦賀(若狭路)", google_maps_directions_url("敦賀市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          <ruby>
+            <rb>敦賀</rb>
+            <rt>つるが</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>美浜町</rb>
+            <rt>みはまちょう</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>若狭町</rb>
+            <rt>わかさちょう</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>小浜市</rb>
+            <rt>おばまし</rt>
+          </ruby>
+          ・おおい町
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "富山", google_maps_directions_url("富山市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          富山・
+          <ruby>
+            <rb>立山</rb>
+            <rt>たてやま</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>上市町</rb>
+            <rt>かみいちまち</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>滑川</rb>
+            <rt>なめりかわ</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "砺波", google_maps_directions_url("砺波市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          <ruby>
+            <rb>砺波</rb>
+            <rt>となみ</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>南砺</rb>
+            <rt>なんと</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>小矢部</rb>
+            <rt>おやべ</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "高岡", google_maps_directions_url("高岡市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          高岡・
+          <ruby>
+            <rb>射水</rb>
+            <rt>いみず</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>氷見</rb>
+            <rt>ひみ</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "黒部", google_maps_directions_url("黒部市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          <ruby>
+            <rb>黒部</rb>
+            <rt>くろべ</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>宇奈月</rb>
+            <rt>うなづき</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>魚津</rb>
+            <rt>うおづ</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>入善町</rb>
+            <rt>にゅうぜんまち</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>朝日町</rb>
+            <rt>あさひまち</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "新潟", google_maps_directions_url("新潟市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          新潟・
+          <ruby>
+            <rb>阿賀野</rb>
+            <rt>あがの</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>阿賀町</rb>
+            <rt>あがまち</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>五泉市</rb>
+            <rt>ごせんし</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>入善町</rb>
+            <rt>にゅうぜんまち</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>朝日町</rb>
+            <rt>あさひまち</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "燕三条", google_maps_directions_url("三条市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          <ruby>
+            <rb>三条市</rb>
+            <rt>さんじょうし</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>燕市</rb>
+            <rt>つばめし</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>加茂市</rb>
+            <rt>かもし</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>田上町</rb>
+            <rt>たがみまち</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>弥彦村</rb>
+            <rt>やひこむら</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "長岡(柏崎)", google_maps_directions_url("長岡市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          長岡・
+          <ruby>
+            <rb>柏崎</rb>
+            <rt>かしわざき</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>刈羽村</rb>
+            <rt>かりわむら</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>出雲崎町</rb>
+            <rt>いずもざきまち</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>小千谷市</rb>
+            <rt>おぢやし</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "魚沼(越後湯沢)", google_maps_directions_url("魚沼市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          <ruby>
+            <rb>魚沼</rb>
+            <rt>うおぬま</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>南魚沼</rb>
+            <rt>みなみうおぬま</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>十日町</rb>
+            <rt>とおかまち</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>越後湯沢</rb>
+            <rt>えちごゆざわ</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>津南町</rb>
+            <rt>つなんまち</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "上越(妙高・糸魚川)", google_maps_directions_url("上越市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          上越・
+          <ruby>
+            <rb>妙高</rb>
+            <rt>みょうこう</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>糸魚川</rb>
+            <rt>いといがわ</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>十日町</rb>
+            <rt>とおかまち</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>越後湯沢</rb>
+            <rt>えちごゆざわ</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>津南町</rb>
+            <rt>つなんまち</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "村上(新発田)", google_maps_directions_url("村上市"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          村上市・
+          <ruby>
+            <rb>新発田</rb>
+            <rt>しばた</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>胎内市</rb>
+            <rt>たいないし</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>関川村</rb>
+            <rt>せきかわむら</rt>
+          </ruby>
+          ・
+          <ruby>
+            <rb>聖籠町</rb>
+            <rt>せいろうまち</rt>
+          </ruby>
+        </div>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <%= link_to "佐渡", google_maps_directions_url("佐渡"), target: "_blank", class: "btn btn-info" %>
+        <div>
+          佐渡
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

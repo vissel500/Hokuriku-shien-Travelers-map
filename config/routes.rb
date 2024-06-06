@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     end
   end
   resources :bookmarks, only: %i[create destroy]
+  resources :movement_methods, only: %i[index]
   resources :inquiries, only: %i[new create] do
     collection do
       match :confirm, via: %i[get post]
