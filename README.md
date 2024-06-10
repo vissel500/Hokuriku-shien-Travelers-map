@@ -50,29 +50,22 @@
 - 「北陸各地への行き方検索ツール」
 
 ## 使用技術
-■ 開発環境: Docker
-■ メインフレームワーク:
-・Ruby on Rails 7
-■ HTML/CSSフレームワーク:
-・Bootstrap 5
-■ JavaScriptビルドツール:
-・esbuild
-■ JavaScript実行環境:
-・Node.js
-■ Node.jsのパッケージ管理ツール
-・yarn
-■ Sass実行環境:
-・dartsass-rails(gemで使用)
-■ データベース:
-・PostgreSQL
-■ WebAPI: 
-・Google Maps Platformを使い、以下のAPIを使用↓
-・Maps JavaScript API (マップ機能、「TrafficLayer」「TransitLayer」による交通情報の表示)
-・Google Places API (検索機能と検索によって得られた地点の詳細情報の取得)
-■ 認証:
-・Devise(Ruby on Railsでの認証を処理)
-・gem "omniauth-google-oauth2"(Google認証に使用)
-■ インフラ: 
-・Webアプリケーションサーバ: heroku
-・データベースサーバ: PostgreSQL
-■ バージョン管理システム(VCS)：GitHub
+- ■ 開発環境: Docker
+- ■ メインフレームワーク: Ruby on Rails 7
+- ■ HTML/CSSフレームワーク: Bootstrap 5
+- ■ JavaScriptビルドツール: esbuild
+- ■ JavaScript実行環境: Node.js
+- ■ Node.jsのパッケージ管理ツール: yarn
+- ■ Sass実行環境: dartsass-rails(gemで使用)
+- ■ データベース: PostgreSQL
+- ■ WebAPI: 
+- Google Maps Platformを使い、以下のAPIを使用↓
+- Maps JavaScript API (マップ機能、「TrafficLayer」「TransitLayer」による交通情報の表示)
+- Google Places API (検索機能と検索によって得られた地点の詳細情報の取得)
+- ■ 認証:
+- Devise(Ruby on Railsでの認証を処理)
+- gem "omniauth-google-oauth2"(Google認証に使用)
+- ■ インフラ: 
+- Webアプリケーションサーバ: heroku
+- データベースサーバ: PostgreSQL
+- ■ バージョン管理システム(VCS)：GitHub
