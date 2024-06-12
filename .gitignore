@@ -32,6 +32,10 @@
 
 /public/assets
 
+# Ignore PostgreSQL and pgAdmin Docker volumes
+volume_pgadmin/
+volume_postgres/
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
