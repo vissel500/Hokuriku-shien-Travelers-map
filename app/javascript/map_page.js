@@ -1,36 +1,22 @@
+import { MarkerClusterer } from "@googlemaps/markerclusterer";
+
 document.addEventListener("turbo:load", () => {
   let googleMapsScriptLoaded = false;
-  let markerClustererScriptLoaded = false;
   let markerCluster;
 
   function loadScripts() {
-    function initMapWhenReady() {
-      if (googleMapsScriptLoaded && markerClustererScriptLoaded) {
-        initMap();
-      }
-    }
-
     const googleMapsScript = document.createElement("script");
     googleMapsScript.type = "text/javascript";
     googleMapsScript.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyANC15Na85B6UwwYHXVP9NturgBAe0BpyQ&libraries=places&language=ja&callback=onGoogleMapsLoad";
     document.body.appendChild(googleMapsScript);
 
-    const markerClustererScript = document.createElement("script");
-    markerClustererScript.type = "text/javascript";
-    markerClustererScript.src = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js";
-    markerClustererScript.onload = function() {
-      markerClustererScriptLoaded = true;
-      initMapWhenReady();
-    };
-    document.body.appendChild(markerClustererScript);
-
     window.onGoogleMapsLoad = function() {
       googleMapsScriptLoaded = true;
-      initMapWhenReady();
+      initMap();
     };
   }
 
-  if (!window.google || !window.MarkerClusterer) {
+  if (!window.google) {
     loadScripts();
   } else {
     initMap();
@@ -87,16 +73,16 @@ document.addEventListener("turbo:load", () => {
     });
 
     const input = document.getElementById("pac-input");
-    const autocomplete = new google.maps.places.Autocomplete(input, {componentRestrictions: {country: "jp"}});
+    const autocomplete = new google.maps.places.Autocomplete(input, { componentRestrictions: { country: "jp" } });
     autocomplete.bindTo("bounds", map);
-    autocomplete.addListener("place_changed", function() {});
+    autocomplete.addListener("place_changed", function () { });
     const service = new google.maps.places.PlacesService(map);
 
-    document.getElementById("search-button").addEventListener("click", function() {
+    document.getElementById("search-button").addEventListener("click", function () {
       const input = document.getElementById("pac-input").value;
       if (!input) return;
 
-      service.findPlaceFromQuery({query: input, fields: ["name", "geometry", "place_id"]}, function(results, status) {
+      service.findPlaceFromQuery({ query: input, fields: ["name", "geometry", "place_id"] }, function (results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK && results) {
           map.markers.forEach(marker => marker.setMap(null));
           map.markers = [];
@@ -111,15 +97,15 @@ document.addEventListener("turbo:load", () => {
             });
             map.markers.push(marker);
 
-            marker.addListener("click", function() {
-              service.getDetails({placeId: place.place_id}, function(result, status) {
+            marker.addListener("click", function () {
+              service.getDetails({ placeId: place.place_id }, function (result, status) {
                 if (status === google.maps.places.PlacesServiceStatus.OK) {
                   const content = '<div><strong>' + 'Address: ' + result.formatted_address + '<br>' +
-                                'Phone: ' + (result.formatted_phone_number || 'N/A') + '<br>' +
-                                'Website: ' + (result.website ? '<a href="' + result.website + '">' + result.website + '</a>' : 'N/A') + '<br>' +
-                                'Hours: ' + (result.opening_hours ? result.opening_hours.weekday_text.join(', ') : 'N/A') + '<br>' +
-                                '<img src="' + (result.photos && result.photos.length ? result.photos[0].getUrl() : '') + '" alt="Place image" style="width:100px;"><br>' +
-                                'Reviews: ' + (result.reviews && result.reviews.length ? result.reviews[0].text : 'N/A') + '</div>';
+                    'Phone: ' + (result.formatted_phone_number || 'N/A') + '<br>' +
+                    'Website: ' + (result.website ? '<a href="' + result.website + '">' + result.website + '</a>' : 'N/A') + '<br>' +
+                    'Hours: ' + (result.opening_hours ? result.opening_hours.weekday_text.join(', ') : 'N/A') + '<br>' +
+                    '<img src="' + (result.photos && result.photos.length ? result.photos[0].getUrl() : '') + '" alt="Place image" style="width:100px;"><br>' +
+                    'Reviews: ' + (result.reviews && result.reviews.length ? result.reviews[0].text : 'N/A') + '</div>';
 
                   const modalTitle = document.getElementById("infoModalLabel");
                   const modalBody = document.querySelector("#infoModal .modal-body");
@@ -139,9 +125,7 @@ document.addEventListener("turbo:load", () => {
       });
     });
 
-    markerCluster = new MarkerClusterer(map, [], {
-      imagePath: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
-    });
+    markerCluster = new MarkerClusterer({ map });
 
     const bookmarkStatus = {};
 
@@ -156,19 +140,19 @@ document.addEventListener("turbo:load", () => {
             map: map
           });
 
-          marker.addListener("click", function() {
+          marker.addListener("click", function () {
             const modalTitle = document.getElementById("infoModalLabel");
             const modalBody = document.querySelector("#infoModal .modal-body");
 
             modalTitle.textContent = spot.name;
             modalBody.innerHTML = '<div>' + '住所: ' + spot.address + '<br>' +
-                                  'カテゴリ: ' + spot.category + '</div>';
+              'カテゴリ: ' + spot.category + '</div>';
 
             if (isLoggedIn) {
               const bookmarkButton = document.createElement("button");
               bookmarkButton.className = "btn btn-outline-primary bookmark-button";
               bookmarkButton.innerHTML = bookmarkStatus[spot.id] ? '<i class="bi bi-star-fill"></i>' : '<i class="bi bi-star"></i>';
-              bookmarkButton.onclick = function() {
+              bookmarkButton.onclick = function () {
                 const method = bookmarkStatus[spot.id] ? "DELETE" : "POST";
                 const url = bookmarkStatus[spot.id] ? `/bookmarks/${spot.bookmark_id}` : "/bookmarks";
                 fetch(url, {
@@ -209,25 +193,24 @@ document.addEventListener("turbo:load", () => {
         updateMarkers("All");
       });
 
-    window.updateMarkers = function(category) {
+    window.updateMarkers = function (category) {
       markerCluster.clearMarkers();
       if (category === "All" || (category === "全て(マップに表示する観光地のカテゴリを選択)" && isVisible)) {
-        Object.values(markersByCategory).flat().forEach(marker => markerCluster.addMarker(marker, false));
-      } else if (isVisible) {
-        markersByCategory[category].forEach(marker => markerCluster.addMarker(marker, false));
+        Object.values(markersByCategory).forEach(markers => markerCluster.addMarkers(markers));
+      } else {
+        markerCluster.addMarkers(markersByCategory[category] || []);
       }
+      markerCluster.redraw();
     };
-
-    document.getElementById("toggle-tourist-spots").addEventListener("click", function() {
-      isVisible = !isVisible;
-      markerCluster.clearMarkers();
-      if (isVisible) {
-        updateMarkers(document.getElementById("category-selector").value);
-      }
-      this.classList.toggle("btn-success", isVisible);
-      this.classList.toggle("btn-secondary", !isVisible);
-    });
   }
 
-  window.updateMarkers = updateMarkers;
+  document.getElementById("toggle-tourist-spots").addEventListener("click", function() {
+    isVisible = !isVisible;
+    markerCluster.clearMarkers();
+    if (isVisible) {
+      updateMarkers(document.getElementById("category-selector").value);
+    }
+    this.classList.toggle("btn-success", isVisible);
+    this.classList.toggle("btn-secondary", !isVisible);
+  });
 });
